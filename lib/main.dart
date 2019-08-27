@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -24,22 +23,23 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-
-
 class _MyHomePageState extends State<MyHomePage> {
-  String title = "Page 1";
+  String title = "";
   Widget mBody;
   int currentPage = 1;
   IconData ionFAB;
+  Color mColor;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        backgroundColor: mColor,
       ),
       body: gotoNext(currentPage),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: mColor,
         onPressed: () {
           currentPage++;
           print(currentPage);
@@ -57,31 +57,67 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget gotoNext(int currentPage) {
     switch (currentPage) {
-      case 2:
+      //Pages
+      case 2: //Page 2
         title = "Page 2";
-        mBody = Center(
-          child: Text(title),
+        ionFAB = Icons.shop;
+        mColor=Colors.green;
+        return mBody = Center(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.fromLTRB(0.0, 250.0, 0.0, 0.0),
+                child: Center(
+                  child: Container(
+                    color: mColor,
+                    child: Center(
+                      child: Text(
+                        title,
+                        style: TextStyle(color: Colors.white,fontSize: 24.0),
+                      ),
+                    ),
+                    height: 100.0,
+                    width: 100.0,
+                  ),
+                ),
+              ),
+            ],
+          ),
         );
-        ionFAB=Icons.shopping_cart;
         break;
-      case 3:
+
+      case 3: //Page 3
         title = "Page 3";
-        mBody = Center(
-          child: Text(title),
+        mColor = Colors.blueAccent;
+        ionFAB = Icons.replay;
+        String url =
+            "http://www.textures4photoshop.com/tex/thumbs/fireball-PNG-transparent-background-thumb35.png";
+        return mBody = Center(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.fromLTRB(0.0, 250.0, 0.0, 0.0),
+                child: CircleAvatar(
+                  backgroundColor: Colors.transparent,
+                  backgroundImage: NetworkImage(url,
+                  scale: 1.0),
+                  radius: 50.0,
+                ),
+              ),
+              Text('Cargando Network Img',style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20.0),),
+            ],
+          ),
         );
-        ionFAB=Icons.arrow_forward;
         break;
-      default :
+
+      default: //Page 1
         title = "Page 1";
-        mBody = Center(
-          child: Text(title),
+        mColor = Colors.red;
+        ionFAB = Icons.arrow_forward;
+        return mBody = Center(
+          child: Text(title,style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 50.0),),
         );
-        ionFAB=Icons.arrow_forward;
         break;
     }
-    
-    return  mBody = Center(
-      child: Text(title),
-    );
   }
 }
